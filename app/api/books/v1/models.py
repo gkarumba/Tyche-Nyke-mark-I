@@ -58,3 +58,18 @@ class BooksModel():
         for book in books_list:
             if id == book['id']:
                 return book
+    
+    def edit_book(self,id,author,title,category):
+        """
+            Method for editing a book's details 
+        """
+        payload = {
+            'title' : title,
+            'author' : author,
+            'category' : category
+        }
+        for book in books_list:
+            if id == book['id']:
+                book.update(payload)
+                self.db.append(book)
+                return self.db[id]
