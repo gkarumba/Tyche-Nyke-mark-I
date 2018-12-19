@@ -1,0 +1,115 @@
+body{
+    font: 15px/1.5 'Patrick Hand', cursive;
+    padding: 0;
+    margin: 0;
+    background-color: #5CDB95;
+}
+/* Global */
+.container{
+    width: 70%;
+    margin: auto;
+    overflow: hidden;
+}
+ul{
+    margin: 0;
+    padding: 0;
+}
+
+/* header */
+header{
+    background: #05386B;
+    color: #5CDB95;
+    padding-top: 30px;
+    min-height: 70px;
+}
+header a{
+    color: #5CDB95;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+header li{
+    float: left;
+    display: inline;
+    padding: 0 20px 0 20px;
+}
+header #logo{
+    float: left;
+}
+header #logo h1{
+    margin: 0;
+}
+header nav{
+    float: right;
+    margin-top: 10px; 
+}
+header .brand{
+    color: #EDF5E1;
+    font-weight: bold;
+}
+header a:hover{
+    color: #379683;
+    font-weight: bold;
+}
+/* display */
+#display{
+    color: #05386B;
+    min-height: 600px;
+    background-image: url('../img/freepik.jpg'), url('../img/bkg.jpg');
+    background-blend-mode: lighten;
+    background-repeat: no-repeat;
+    background-attachment: scroll; 
+    background-size: 50% 90%;
+    background-position: center;
+    text-align: center;
+    text-shadow:
+    -1px -1px 0 #5CDB95,
+    1px -1px 0 #EDF5E1,
+    -1px 1px 0 #5CDB95,
+    1px 1px 0 #EDF5E1;
+}
+#display h1{
+    margin-top: 130px;
+    font-size: 55px;
+    margin-bottom: 10px; 
+}
+#display p{
+    font-size: 20px;
+}
+/* squares */
+#squares .box{
+    float: left;
+    color: #05386B;
+    text-align: center;
+    width: 30%;
+    padding: 10px;
+}
+#squares .box img{
+    width: 90px;
+    border-radius: 30%;
+}
+/* footer */
+footer{
+    padding: 20px;
+    margin-top: 20px;
+    color: #8EE4AF;
+    background-color: #05386B;
+    text-align: center;
+}
+/* media queries */
+@media(max-width: 768px){
+    header #logo,
+    header nav,
+    header nav li,
+    #squares .box{
+        float: none;
+        text-align: center;
+        width: 100%;
+    }
+    header{
+        padding-bottom: 20px; 
+    }
+    #display h1{
+        margin-top: 40px;
+    }
+}
