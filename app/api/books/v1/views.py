@@ -29,6 +29,14 @@ class AddBook(Resource):
             'book': new_book
         }),201)
         
-                
+    def get(self):
+        """
+            Method for getting all books
+        """
+        all_books = db.get_all()
+        return make_response(jsonify({
+            'message':'OK',
+            'book': all_books
+        }),200)
        
 

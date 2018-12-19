@@ -35,9 +35,6 @@ class BooksModel():
             self.db.append(payload)
             return self.db
             
-            
-        
-        
     def is_added(self,title):
         """
             Method for checking if a book is already in the library
@@ -47,3 +44,9 @@ class BooksModel():
                 return True
             else:
                 return False
+
+    def get_all(self):
+        """
+            Method for retrieving all the books
+        """
+        return books_list
