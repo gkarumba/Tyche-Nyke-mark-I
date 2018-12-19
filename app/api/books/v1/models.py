@@ -43,7 +43,7 @@ class BooksModel():
             Method for checking if a book is already in the library
         """
         for book in books_list:
-            if (title == book['title']):
+            if title == book['title']:
                 return True
             else:
                 return False
