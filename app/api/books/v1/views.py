@@ -81,3 +81,25 @@ class EditBook(Resource):
             return make_response(jsonify({
                 'message':'Invalid ID no book found'
             }),400)
+
+class BorrowBook(Resource):
+    """
+        Class for method of borrowing book
+    """
+    def put(self,id):
+        """
+            Method for allowing users to borrow a book
+        """
+        data = request.get_json()
+        status = data['updated_status']
+
+        new_status = db.borrow_book(id,status)
+        if new_status:
+            return make_response(jsonify({
+                'message':'book borrowed successfully',
+                'book': new_status
+            }),200)
+        else:
+            return make_response(jsonify({
+                'message':'Invalid ID no book found'
+            }),400)
