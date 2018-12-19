@@ -18,18 +18,17 @@ class AddBook(Resource):
         title = data['title']
         author = data['author']
         category = data['category']
-
-        check_book = BooksModel.is_added(self,title)
-        if check_book == True:
+  
+        new_book = db.add_book(title,author,category)
+        if new_book == 'Book already exists':
             return make_response(jsonify({
-                'message':'Book already exists'
+            'message':'Book already exists',
             }),400)
-        else:
-            new_book = db.add_book(title,author,category)
-            # if new_book != 'Book already exists':
-            return make_response(jsonify({
-                'messae':'Book has been posted successfully',
-                'book': new_book
-            }),201)
+        return make_response(jsonify({
+            'message':'Book has been posted successfully',
+            'book': new_book
+        }),201)
+        
+                
        
 

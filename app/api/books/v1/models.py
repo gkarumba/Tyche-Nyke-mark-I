@@ -28,8 +28,8 @@ class BooksModel():
             'id' : len(books_list) + 1,
             'added_on'  : datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         } 
-        check_book = self.is_added(title)
-        if check_book ==  True:
+        check_title = self.is_added(title)
+        if check_title == True:
             return 'Book already exists'
         else:
             self.db.append(payload)
@@ -43,7 +43,7 @@ class BooksModel():
             Method for checking if a book is already in the library
         """
         for book in books_list:
-            if (title == book['title']):
+            if title == book['title']:
                 return True
             else:
                 return False
