@@ -3,8 +3,8 @@ from flask_restful import Resource,Api
 #local imports
 from app.api.books.v1.views import AddBook
 
-bk1 = Blueprint('book_v1',__name__,url_prefix='/api/v1')
+library_v1 = Blueprint('book_v1',__name__,url_prefix='/api/v1')
 
-api = Api(bk1)
+api = Api(library_v1)
 
 api.add_resource(AddBook,'/books')
