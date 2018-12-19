@@ -94,7 +94,8 @@ class EndpointsTests(BaseTest):
             Method for testing the not returned books by a user
         """
         self.client.post('api/v1/books',data=json.dumps(self.post_data),content_type='application/json')
-        response = self.client.get('/api/v1/books',data=json.dumps(self.return_data),content_type='application/json')
+        response  = self.client.put('/api/v1/books/borrow/1',data=json.dumps(self.borrow_data),content_type='application/json')
+        response = self.client.get('/api/v1/books/unreturned',data=json.dumps(self.unreturned_data),content_type='application/json')
         result = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
         self.assertIn(result['message'],'Books not returned by user')
