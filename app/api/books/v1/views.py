@@ -39,4 +39,21 @@ class AddBook(Resource):
             'book': all_books
         }),200)
        
-
+class GetBook(Resource):
+    """
+        Class for method of getting one book
+    """ 
+    def get(self,id):
+        """
+            Method for retrieving one book
+        """
+        one_book = db.get_one(id)
+        if one_book:
+            return make_response(jsonify({
+                'message':'OK',
+                'book': one_book
+            }),200)
+        else:
+            return make_response(jsonify({
+                'message':'Invalid ID no book found'
+            }),400)
