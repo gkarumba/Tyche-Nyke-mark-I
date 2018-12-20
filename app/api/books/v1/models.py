@@ -33,7 +33,8 @@ class BooksModel():
             return 'Book already exists'
         else:
             self.db.append(payload)
-            return self.db
+            for pos in self.db:
+                return pos
             
     def is_added(self,title):
         """
@@ -68,45 +69,46 @@ class BooksModel():
             'author' : author,
             'category' : category
         }
-        for pos,book in enumerate(books_list):
-            if id == book['id']:
-                updated_book = book.update(payload)
-                self.db[pos] == updated_book
-                return self.db[id]
+        if len(books_list) > 0:
+            for pos,book in enumerate(books_list):
+                if id == book['id']:
+                    updated_book = book.update(payload)
+                    self.db[pos] == updated_book
+                    return book['id']
+        return False
     
-    def borrow_book(self,id,status):
+    def borrow_book(self,id):
         """
             Method for allowing user to borrow book
         """
         payload = {
-            'status':status
+            'status':'Unavailable'
         }
         for pos,book in enumerate(books_list):
             if id == book['id']:
                 updated_book = book.update(payload)
                 self.db[pos] == updated_book
-                return self.db[id]
+                return book
 
-    def return_book(self,id,status):
+    def return_book(self,id):
         """
             Method of allowing user to return borrowed books
         """
         payload = {
-            'status':status
+            'status':'Available' 
         }
-        for book in books_list:
+        for pos,book in enumerate(books_list):
             if id == book['id']:
-                book.update(payload)
-                self.db.append(book)
-                return self.db[id]
+                updated_book = book.update(payload)
+                self.db[pos] == updated_book
+                return book
 
     def get_unreturned(self):
         """
             Method for getting unreturned books
         """
         unreturned = []
-        for book in books_list:
-            if book['status'] == 'Borrowed':
-                unreturned.append(book)
-                return unreturned
-
+        for pos in self.db:
+            if pos['status'] == 'Unavailable':
+                response = unreturned.append(pos)
+        return unreturned
