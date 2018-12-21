@@ -1,6 +1,6 @@
 import json
 #local imports
-from app.tests.test_base import BaseTest
+from app.tests.v1.test_base import BaseTest
 
 class ValidationsTest(BaseTest):
     """
