@@ -1,6 +1,7 @@
 import json
 #local imports
 from app.tests.v2.test_base import BaseTest
+from app.database.database import BooksDB as db
 
 class EndpointsTest(BaseTest):
     """
@@ -60,4 +61,14 @@ class EndpointsTest(BaseTest):
         result = json.loads(response.dat)
         self.assertEqual(response.status_code, 200)
         self.assertIn(result['message'],'Unreturned Books')
+
+    def tearDown(self):
+        """
+        Method for destroying the tablea after running the program
+        """
+        db.drop_tables()
+
+if __name__ == '__main__':
+    unittest.main()
+    
     
