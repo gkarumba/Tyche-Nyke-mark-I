@@ -19,7 +19,7 @@ ul{
 header{
     background: #05386B;
     color: #5CDB95;
-    padding-top: 30px;
+    padding: 25px 0 15px 0;
     min-height: 70px;
 }
 header a{
@@ -100,40 +100,48 @@ footer{
 
 * {box-sizing: border-box;}
 
+#signup {
+    color: #05386B;
+    padding-top: 60px;
+    min-height: 600px;
+    text-align: center;
+}
 .input-container {
   display: -ms-flexbox; /* IE10 */
   display: flex;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .icon {
   padding: 10px;
-  background: dodgerblue;
+  background: #05386B;
   color: white;
   min-width: 50px;
   text-align: center;
 }
 
 .input-field {
-  width: 100%;
-  padding: 10px;
-  outline: none;
+    font: 15px/1.5 'Patrick Hand', cursive;
+    width: 100%;
+    padding: 15px;
+    outline: none;
 }
 
 .input-field:focus {
-  border: 2px solid dodgerblue;
+  border: 2px solid #05386B;
 }
 
 /* Set a style for the submit button */
 .btn {
-  background-color: dodgerblue;
-  color: white;
-  padding: 15px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
+    font: 15px/1.5 'Patrick Hand', cursive;
+    background-color: #05386B;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
 }
 
 .btn:hover {
