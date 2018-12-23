@@ -46,8 +46,24 @@ class BooksViews(Resource):
                 return make_response(jsonify({
                     'message':'Book added successfully',
                     'book_id':books['id']
-                }),200)
+                }),201)
         else: 
             return make_response(jsonify({
                 'message':'Book already exists',
             }),400)
+
+    def get(self):
+        """
+        Method to retrieve all the books
+        """
+        response = book.get_all_books()
+        if response:
+            return make_response(jsonify({
+                    'message':'Books in the library',
+                    'books':response
+                }),200)
+        else:
+            return make_response(jsonify({
+                'message':'No books in the library'
+            }),400)
+            
