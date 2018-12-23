@@ -54,3 +54,11 @@ class BooksModel():
         query = """ SELECT * FROM books """
         response = db.get_all(query)
         return response
+
+    def get_one_book(self,id):
+        """
+        Method for getting one book
+        """
+        query = """ SELECT * FROM books WHERE id = '{}'""".format(id)
+        response = db.get_one(query)
+        return response
