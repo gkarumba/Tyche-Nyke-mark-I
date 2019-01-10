@@ -6,10 +6,16 @@ class BaseTest(unittest.TestCase):
     """
         Class for setting up the tests
     """ 
-    def setUp():
+    def setUp(self):
         """
             Method for setting up the tests
         """
-        self.app_test = create_app(config_name="testing_config")
+        self.app_test = create_app()
         self.client = self.app_test.test_client()
         self.app_test.testing = True
+
+        self.post_data = {
+            "title":"Buddies of Rome",
+            "author":"Cannius Longinus",
+            "category":"history"
+        }
