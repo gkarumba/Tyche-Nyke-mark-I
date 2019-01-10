@@ -25,11 +25,24 @@ class BaseTest(unittest.TestCase):
             "updated_category":"fiction"
         }
         self.borrow_data = {
-            "updated_status":"Borrowed"
+            "updated_status":"borrow"
         }
         self.return_data = {
-            "updated_status":"Returned"
+            "updated_status":"return"
         }
         self.unreturned_data = {
             "status":"Borrowed"
+        }
+        self.space_data = {
+            "title":" ",
+            "author":"Cannius Longinus",
+            "category":"history"
+        }
+        self.word_data = {
+            "title":"Off the pitch",
+            "author":"123456",
+            "category":"history"
+        }
+        self.status_data = {
+            "updated_status":"borrowed"
         }
