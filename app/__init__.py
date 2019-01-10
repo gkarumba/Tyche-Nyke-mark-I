@@ -13,3 +13,4 @@ def create_app(config_name="development_config"):
     app.register_blueprint(library_v1)
     app.register_blueprint(library_v2)
     return app
+
