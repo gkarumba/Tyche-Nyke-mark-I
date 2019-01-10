@@ -5,7 +5,7 @@ from app.api.books.v2.models import BooksModel
 from app.utilities.validations import check_space,check_words
 book = BooksModel()
 
-class BooksViews(Resource):
+class AddBooks(Resource):
     """
     class for the methods to add and retrieve all books
     """
@@ -67,3 +67,21 @@ class BooksViews(Resource):
                 'message':'No books in the library'
             }),400)
             
+class GetBook(Resource):
+    """
+    Class for the method to get one book
+    """
+    def get(self,id):
+        """
+        Method to get one book
+        """
+        response = book.get_one_book(id)
+        if response:
+            return make_response(jsonify({
+                'message':'Book Found',
+                'books':response
+            }),200)
+        else:
+            return make_response(jsonify({
+                'message':'Invalid ID.No book found'
+            }),400)
