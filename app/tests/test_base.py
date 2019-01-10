@@ -27,3 +27,6 @@ class BaseTest(unittest.TestCase):
         self.borrow_data = {
             "updated_status":"Borrowed"
         }
+        self.return_data = {
+            "updated_status":"Returned"
+        }

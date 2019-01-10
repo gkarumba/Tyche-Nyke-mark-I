@@ -86,3 +86,17 @@ class BooksModel():
                 book.update(payload)
                 self.db.append(book)
                 return self.db[id]
+
+    def return_book(self,id,status):
+        """
+            Method of allowing user to return borrowed books
+        """
+        payload = {
+            'status':status
+        }
+        for book in books_list:
+            if id == book['id']:
+                book.update(payload)
+                self.db.append(book)
+                return self.db[id]
+

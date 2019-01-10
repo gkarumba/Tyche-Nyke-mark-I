@@ -84,7 +84,7 @@ class EndpointsTests(BaseTest):
             Method for testing returning a book
         """
         self.client.post('/api/v1/books',data=json.dumps(self.post_data),content_type='application/json')
-        response = self.client.put('/api/v1/books/1',data=json.dumps(self.return_data),content_type='application/json')
+        response = self.client.put('/api/v1/books/return/1',data=json.dumps(self.return_data),content_type='application/json')
         result = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
         self.assertIn(result['message'],'Book has been returned')
