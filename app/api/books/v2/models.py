@@ -46,3 +46,11 @@ class BooksModel():
         if not response:
             return False
         return True
+
+    def get_all_books(self):
+        """
+        Method to retrieve all the books
+        """
+        query = """ SELECT * FROM books """
+        response = db.get_all(query)
+        return response

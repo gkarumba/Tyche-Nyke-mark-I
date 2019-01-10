@@ -24,7 +24,7 @@ class EndpointsTest(BaseTest):
         response = self.client.get('/api/v2/books',data=json.dumps(self.post_data),content_type='application/type')
         result = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
-        self.assertIn(result['message'],'OK')
+        self.assertIn(result['message'],'Books in the library')
 
     def test_get_one(self):
         self.client.post('/api/v2/books',data=json.dumps(self.post_data),content_type='application/json')
@@ -58,7 +58,7 @@ class EndpointsTest(BaseTest):
         self.client.post('/api/v2/books',data=json.dumps(self.post_data),content_type='application/json')
         self.client.put('/api/v2/books/borrow/1',data=json.dumps(self.borrow_data),content_type='application/type')
         response = self.client.get('/api/v2/books/unreturned',data=json.dumps(self.borrow_data),content_type='application/type')
-        result = json.loads(response.dat)
+        result = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
         self.assertIn(result['message'],'Unreturned Books')
 
@@ -66,7 +66,7 @@ class EndpointsTest(BaseTest):
         """
         Method for destroying the tablea after running the program
         """
-        db.drop_tables()
+        db.drop_tables(self)
 
 if __name__ == '__main__':
     unittest.main()
