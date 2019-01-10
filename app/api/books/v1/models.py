@@ -50,3 +50,11 @@ class BooksModel():
             Method for retrieving all the books
         """
         return books_list
+
+    def get_one(self,id):
+        """
+            Method for retrieving one book
+        """
+        for book in books_list:
+            if id == book['id']:
+                return book

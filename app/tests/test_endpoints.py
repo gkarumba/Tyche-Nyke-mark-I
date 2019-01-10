@@ -49,7 +49,7 @@ class EndpointsTests(BaseTest):
         self.assertEqual(response.status_code, 200)
         self.assertIn(result['message'],'OK')
 
-    def test_get_one(self,id):
+    def test_get_one(self):
         """
             Method for testing retrieving one book
         """
@@ -59,7 +59,7 @@ class EndpointsTests(BaseTest):
         self.assertEqual(response.status_code, 200)
         self.assertIn(result['message'],'OK')
 
-    def test_borrow(self,id):
+    def test_borrow(self):
         """
             Method for testing borrowing a book
         """
@@ -69,12 +69,12 @@ class EndpointsTests(BaseTest):
         self.assertEqual(response.status_code, 200)
         self.assertIn(result['message'],'Book has been borrowed')
 
-    def test_return(self,id):
+    def test_return(self):
         """
             Method for testing returning a book
         """
         self.client.post('/api/v1/books',data=json.dumps(self.post_data),content_type='application/json')
-        response = self.client.post('/api/v1/books',data=json.dumps(self.return_data),content_type='application/json')
+        response = self.client.put('/api/v1/books/1',data=json.dumps(self.return_data),content_type='application/json')
         result = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
         self.assertIn(result['message'],'Book has been returned')
