@@ -2,7 +2,7 @@ import unittest
 import json
 #local import
 # from app import create_app
-from app.tests.test_base import BaseTest
+from app.tests.v1.test_base import BaseTest
 from app.api.books.v1.models import BooksModel
 
 class EndpointsTests(BaseTest):
