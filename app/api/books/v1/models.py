@@ -68,10 +68,10 @@ class BooksModel():
             'author' : author,
             'category' : category
         }
-        for book in books_list:
+        for pos,book in enumerate(books_list):
             if id == book['id']:
-                book.update(payload)
-                self.db.append(book)
+                updated_book = book.update(payload)
+                self.db[pos] == updated_book
                 return self.db[id]
     
     def borrow_book(self,id,status):
@@ -81,10 +81,10 @@ class BooksModel():
         payload = {
             'status':status
         }
-        for book in books_list:
+        for pos,book in enumerate(books_list):
             if id == book['id']:
-                book.update(payload)
-                self.db.append(book)
+                updated_book = book.update(payload)
+                self.db[pos] == updated_book
                 return self.db[id]
 
     def return_book(self,id,status):
@@ -99,4 +99,14 @@ class BooksModel():
                 book.update(payload)
                 self.db.append(book)
                 return self.db[id]
+
+    def get_unreturned(self):
+        """
+            Method for getting unreturned books
+        """
+        unreturned = []
+        for book in books_list:
+            if book['status'] == 'Borrowed':
+                unreturned.append(book)
+                return unreturned
 

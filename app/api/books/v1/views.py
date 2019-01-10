@@ -125,3 +125,22 @@ class ReturnBook(Resource):
             return make_response(jsonify({
                 'message':'Invalid ID no book found'
             }),400)
+
+class UnreturnedBooks(Resource):
+    """
+        Method for retrieving all the unreturned books
+    """
+    def get(self):
+        """
+            Method for retrieving all the unreturned books
+        """
+        unreturned_books = db.get_unreturned()
+        if unreturned_books:
+            return make_response(jsonify({
+                'message':'Books not returned by user',
+                'book': unreturned_books
+            }),200)
+        else:
+            return make_response(jsonify({
+                'message':'Invalid status format. please use "Borrowed"'
+            }),400)
