@@ -10,17 +10,17 @@ class BaseTest(unittest.TestCase):
         """
         Class for setting up the database
         """
-        self.app_test = create_app(config_name=testing_config)
+        self.app_test = create_app(config_name='testing_config')
         self.client = self.app_test.test_client()
         self.app_test.testing  = True
 
         self.post_data = {
-            "title":"Buddies of Rome",
+            "title":"Catharge",
             "author":"Cannius Longinus",
             "category":"history"
         }
         self.edit_data = {
-            "updated_title":"Allies of Rome",
+            "updated_title":"Rome",
             "updated_author":"Cassius Aurelius",
             "updated_category":"fiction"
         }

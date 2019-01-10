@@ -22,61 +22,57 @@ class BooksDB():
         """
         Method for creating tables in the database
         """
-        queries = (
-            """CREATE TABLES IF NOT EXISTS books(
+        self.cur.execute("""CREATE TABLE IF NOT EXISTS books(
                 id SERIAL PRIMARY KEY,
                 book_name varchar(42) NOT NULL,
                 author varchar(42) NOT NULL,
                 category varchar(42) NOT NULL,
                 status varchar(42) default 'Available'
-                )""",
-            """CREATE TABLES IF NOT EXISTS users(
+                );""",
+            """CREATE TABLE IF NOT EXISTS users(
                 id SERIAL PRIMARY KEY,
                 username varchar(42) NOT NULL,
                 email varchar(42) NOT NULL,
                 role varchar(42) NOT NULL,
                 password varchar(42) NOT NULL,
                 books_borrowed INT REFERENCES books(id)
-            )""";
-        )
-        for q in queries:
-            self.cur.execute(q)
-            self.conn.commit()
+            );""")
+        self.conn.commit()
 
     def drop_tables(self):
         """
         Method for dropping the tables after running tests
         """
         queries = (
-            """DROP TABLE IF EXISTS books CASCADE""";,
-            """DROP TABLES IF EXISTS users CASACADE""";
+            """DROP TABLE IF EXISTS books CASCADE;""",
+            """DROP TABLES IF EXISTS users CASACADE;"""
         )
         for q in queries:
             self.cur.execute(q)
             self.conn.commit()
 
-    def add_to_db(self,query,tuple_data):
+    def add_book(self,query_string,tuple_data):
         """
         Method for adding to the database
         """
-        self.cur.execute(query,tuple_data)
+        self.cur.execute(query_string,tuple_data)
         self.conn.commit()
-        response = self.cur.fetchone()
-        return response
+        # response = self.cur.fetchone()
+        # return response
 
     def get_all(self,query):
         """
         Method for retrieving all the books
         """
         self.cur.execute(query)
-        return self.fetchall()
+        return self.cur.fetchall()
     
     def get_one(self,query):
         """
         Method for retrieving a single book
         """
         self.cur.execute(query)
-        return self.fetchone()
+        return self.cur.fetchone()
 
     def edit_book(self,query):
         """
@@ -104,6 +100,6 @@ class BooksDB():
         Method for retrieving unreturned books
         """
         self.cur.execute(query)
-        return self.fetchall()
+        return self.cur.fetchall()
 
     
