@@ -57,3 +57,27 @@ class GetBook(Resource):
             return make_response(jsonify({
                 'message':'Invalid ID no book found'
             }),400)
+
+class EditBook(Resource):
+    """
+        Class for method of editing a book's details
+    """
+    def put(self,id):
+        """
+            Method for editing a book's details
+        """
+        data = request.get_json()
+        title = data['updated_title']
+        author = data['updated_author']
+        category = data['updated_category']
+
+        new_details = db.edit_book(id,title,author,category)
+        if new_details:
+            return make_response(jsonify({
+                'message':'book edited successfully',
+                'book': new_details
+            }),200)
+        else:
+            return make_response(jsonify({
+                'message':'Invalid ID no book found'
+            }),400)

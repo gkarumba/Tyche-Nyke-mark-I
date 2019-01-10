@@ -59,6 +59,16 @@ class EndpointsTests(BaseTest):
         self.assertEqual(response.status_code, 200)
         self.assertIn(result['message'],'OK')
 
+    def test_edit_book(self):
+        """
+            Method for testing editing a book
+        """
+        self.client.post('/api/v1/books',data=json.dumps(self.post_data),content_type='application/json')
+        response = self.client.put('/api/v1/books/edit/1',data=json.dumps(self.edit_data),content_type='application/json')
+        result = json.loads(response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(result['message'],'book edited successfully')
+
     def test_borrow(self):
         """
             Method for testing borrowing a book

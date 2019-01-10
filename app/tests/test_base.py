@@ -19,3 +19,8 @@ class BaseTest(unittest.TestCase):
             "author":"Cannius Longinus",
             "category":"history"
         }
+        self.edit_data = {
+            "updated_title":"Allies of Rome",
+            "updated_author":"Cassius Aurelius",
+            "updated_category":"fiction"
+        }
