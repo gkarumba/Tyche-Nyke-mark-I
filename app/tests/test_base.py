@@ -24,3 +24,6 @@ class BaseTest(unittest.TestCase):
             "updated_author":"Cassius Aurelius",
             "updated_category":"fiction"
         }
+        self.borrow_data = {
+            "updated_status":"Borrowed"
+        }
