@@ -12,3 +12,4 @@ api.add_resource(GetBook,'/books/<int:id>')
 api.add_resource(EditBook,'/books/edit/<int:id>')
 api.add_resource(BorrowBook,'/books/borrow/<int:id>')
 api.add_resource(ReturnBook,'/books/return/<int:id>')
+
