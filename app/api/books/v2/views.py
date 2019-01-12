@@ -2,7 +2,8 @@ from flask_restful import Resource
 from flask import request,jsonify,make_response
 #local imports
 from app.api.books.v2.models import BooksModel
-from app.utilities.validations import check_space,check_words
+from app.utilities.validations import check_space,check_words,\
+                                      check_borrow
 book = BooksModel()
 
 class AddBooks(Resource):
@@ -181,3 +182,39 @@ class EditCategory(Resource):
             return make_response(jsonify({
                 'message':'Invalid ID.No book found'
             }),400)
+
+class BorrowBook(Resource):
+    """
+    Class with the method to borrow a book
+    """
+    def post(self,id):
+        """
+        Method for borrowing a book
+        """
+        try:
+            data = request.get_json()
+            status = data['status']
+        except Exception:
+            return make_response(jsonify({
+                'message':'Invalid key field'
+            }),400)
+        if not check_borrow(status):
+            return make_response(jsonify({
+                'message':'Title field cannot be empty',
+            }),400)
+        check_status = book.check_status(id)
+        if not check_status:
+            return make_response(jsonify({
+                'message':'Book is Unavailable'
+            }),400)
+        response = book.borrow_book(status,id)
+        if response:
+            return make_response(jsonify({
+                'message':'Book borrowed successfully',
+                'book_id':response
+            }),201)
+        else: 
+            return make_response(jsonify({
+                'message':'Invalid ID.No book found'
+            }),400)
+

@@ -39,6 +39,20 @@ class BooksDB():
             );""")
         self.conn.commit()
 
+    def create_borrow_table(self):
+        """
+        Method to create the borrow table
+        """
+        self.cur.execute(
+            """CREATE TABLE IF NOT EXISTS borrow(
+                book_id INT,
+                user_id INT ,
+                date_borrowed VARCHAR(100) default current_timestamp,
+                date_return VARCHAR(42),
+                status VARCHAR(42)
+            );"""
+        )
+
     def drop_tables(self):
         """
         Method for dropping the tables after running tests
@@ -81,11 +95,11 @@ class BooksDB():
         self.cur.execute(query)
         self.conn.commit()
 
-    def borrow_book(self,query):
+    def borrow_book(self,query,tuple_data):
         """
         Method for borrowing a book
         """
-        self.cur.execute(query)
+        self.cur.execute(query,tuple_data)
         self.conn.commit()
 
     def return_book(self,query):
