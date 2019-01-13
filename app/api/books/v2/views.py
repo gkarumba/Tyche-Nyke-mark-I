@@ -3,7 +3,7 @@ from flask import request,jsonify,make_response
 #local imports
 from app.api.books.v2.models import BooksModel
 from app.utilities.validations import check_space,check_words,\
-                                      check_borrow
+                                      check_borrow,check_return
 book = BooksModel()
 
 class AddBooks(Resource):
@@ -200,7 +200,7 @@ class BorrowBook(Resource):
             }),400)
         if not check_borrow(status):
             return make_response(jsonify({
-                'message':'Title field cannot be empty',
+                'message':'Use the correct status format,borrow'
             }),400)
         check_status = book.check_status(id)
         if not check_status:
@@ -218,3 +218,37 @@ class BorrowBook(Resource):
                 'message':'Invalid ID.No book found'
             }),400)
 
+class ReturnBook(Resource):
+    """
+    Class for the method to return borrowed books
+    """
+    def put(self,id):
+        """
+        Method for returning a borrowed book
+        """
+        try:
+            data = request.get_json()
+            status = data['status']
+        except Exception:
+            return make_response(jsonify({
+                'message':'Invalid key field'
+            }),400)
+        if not check_return(status):
+            return make_response(jsonify({
+                'message':'Use the correct status formart,return',
+            }),400)
+        check_status = book.check_status(id)
+        if check_status:
+            return make_response(jsonify({
+                'message':'Book is already Available'
+            }),400)
+        response = book.return_book(status,id)
+        if response:
+            return make_response(jsonify({
+                'message':'Book returned successfully',
+                'book_id':response
+            }),200)
+        else: 
+            return make_response(jsonify({
+                'message':'Invalid ID.No book found'
+            }),400)
