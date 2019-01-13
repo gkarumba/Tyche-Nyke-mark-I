@@ -115,5 +115,12 @@ class BooksDB():
         """
         self.cur.execute(query)
         return self.cur.fetchall()
+    
+    def delete_book(self,query):
+        """
+        Method for deleting a book
+        """
+        self.cur.execute(query)
+        self.conn.commit()
 
     

@@ -151,3 +151,14 @@ class BooksModel():
         get_query = """ SELECT * FROM books WHERE id = '{}'""".format(book_id)
         response = db.get_one(get_query)
         return response
+
+    def delete_book(self,book_id):
+        """
+        Method to remove a book
+        """
+        check_query = """SELECT book_name FROM books WHERE id = '{}'""".format(book_id)
+        check_response = db.get_one(check_query)
+        if not check_response:
+            return False
+        query = """ DELETE FROM books where id = '{}'""".format(book_id)
+        db.delete_book(query)
