@@ -33,7 +33,7 @@ class BooksDB():
                 id SERIAL PRIMARY KEY,
                 username varchar(42) NOT NULL,
                 email varchar(42) NOT NULL,
-                role varchar(42) NOT NULL,
+                role varchar(42),
                 password varchar(42) NOT NULL,
                 books_borrowed INT REFERENCES books(id)
             );""")
@@ -73,6 +73,13 @@ class BooksDB():
         self.conn.commit()
         # response = self.cur.fetchone()
         # return response
+    
+    def add_user(self,query_string,tuple_data):
+        """
+        Method for adding user to the database
+        """
+        self.cur.execute(query_string,tuple_data)
+        self.conn.commit()
 
     def get_all(self,query):
         """
@@ -91,6 +98,13 @@ class BooksDB():
     def edit_book(self,query):
         """
         Method for editing a book
+        """
+        self.cur.execute(query)
+        self.conn.commit()
+
+    def update_role(self,query):
+        """
+        Method for editing a user's role
         """
         self.cur.execute(query)
         self.conn.commit()

@@ -39,3 +39,22 @@ def check_return(mystring):
     else:
         return False
 
+def check_email(mystring):
+    """
+    Method for checking the user's email
+    """
+    EMAIL_REGEX = re.compile(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)')
+    if not EMAIL_REGEX.match(mystring):
+        return False
+    else:
+        return True
+
+def check_password(mystring):
+    """
+    Method for checking the user's password
+    """
+    if re.match(r'[A-Za-z0-9@#$%^&+=]{8,}', mystring):
+        return True
+    else:
+        return False
+    
