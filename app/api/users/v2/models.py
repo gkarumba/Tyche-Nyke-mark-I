@@ -1,4 +1,4 @@
-
+from werkzeug.security import generate_password_hash,check_password_hash
 #local imports
 from app.database.database import BooksDB
 
@@ -12,10 +12,10 @@ class UsersModel():
         """
         Method of adding a user
         """
+        hash_password = generate_password_hash(password)
         db.create_tables()
-        
         query = """INSERT INTO users(email,password,username) VALUES (%s,%s,%s);"""
-        tuple_data = (email,password,username)
+        tuple_data = (email,hash_password,username)
         db.add_user(query,tuple_data)
         query2 = """SELECT id FROM users WHERE id = (select max(id) from users);"""
         result = db.get_one(query2)
@@ -36,7 +36,6 @@ class UsersModel():
             response = db.get_one(query3)
             return response
 
-
     def get_user_id(self,user_id):
         """
         Method for retrieving user_id
@@ -53,3 +52,13 @@ class UsersModel():
         response = db.get_one(query)
         return response
 
+    def validate_password(self,email,password):
+        """
+        Method to validate the hash_password
+        """
+        query = """SELECT * FROM users WHERE email = '{}'""".format(email)
+        response = db.get_one(query)
+        if response:
+            if check_password_hash(response['password'],password):
+                return True
+            return False

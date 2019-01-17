@@ -34,7 +34,7 @@ class BooksDB():
                 username varchar(42) NOT NULL,
                 email varchar(42) NOT NULL,
                 role varchar(42),
-                password varchar(42) NOT NULL,
+                password varchar(420) NOT NULL,
                 books_borrowed INT REFERENCES books(id)
             );""")
         self.conn.commit()
