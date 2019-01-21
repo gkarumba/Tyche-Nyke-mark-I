@@ -111,20 +111,23 @@ class BooksModel():
             else:
                 return True
         
-    def borrow_book(self,status,book_id):
+    def borrow_book(self,status,book_id,user_id):
         """
         Method to borrow book
         """
-        db.create_borrow_table()
+        db.create_borrow_table() 
+        # print(book_id)
+        # print(user_id)
         check_query = """SELECT book_name FROM books WHERE id = '{}'""".format(book_id)
         check_response = db.get_one(check_query)
+        # print(check_response)
         if not check_response:
             return False
         if status == 'borrow':
             status = 'Unavailable'
         date_return = datetime.datetime.now() + datetime.timedelta(days=7)
-        query = """INSERT INTO borrow (book_id,status,date_return) VALUES(%s,%s,%s);"""
-        tuple_data = (book_id,status,date_return)
+        query = """INSERT INTO borrow (book_id,status,user_id,date_return) VALUES(%s,%s,%s,%s);"""
+        tuple_data = (book_id,status,user_id,date_return)
         db.borrow_book(query,tuple_data)
         query = """UPDATE books SET status = '{}' WHERE id = '{}'""".format(status,book_id)
         db.edit_book(query)
@@ -132,6 +135,7 @@ class BooksModel():
         db.edit_book(query)
         get_query = """ SELECT * FROM borrow WHERE book_id = '{}'""".format(book_id)
         response = db.get_one(get_query)
+        # print(response)
         return response
 
     def return_book(self,status,book_id):
@@ -144,9 +148,10 @@ class BooksModel():
             return False
         if status == 'return':
             status = 'Available'
+        date_return = datetime.datetime.now()
         query = """ UPDATE books SET status = '{}' WHERE id  = '{}'""".format(status,book_id)
         db.return_book(query)
-        query2 = """ UPDATE borrow SET status = '{}' WHERE book_id  = '{}'""".format(status,book_id)
+        query2 = """ UPDATE borrow SET status = '{}', date_return = '{}' WHERE book_id  = '{}'""".format(status,date_return,book_id)
         db.return_book(query2)
         get_query = """ SELECT * FROM books WHERE id = '{}'""".format(book_id)
         response = db.get_one(get_query)
@@ -162,3 +167,12 @@ class BooksModel():
             return False
         query = """ DELETE FROM books where id = '{}'""".format(book_id)
         db.delete_book(query)
+
+    # def get_unreturned_books(self,user_id):
+    #     """
+    #     Method to retrieve all books not returned by user
+    #     """
+    #     status = 'Unavailable'
+    #     check_query = """SELECT * FROM borrow WHERE user_id = '{}' AND status = '{}'""".format(user_id,status)
+    #     response = db.get_all(check_query)
+    #     return response

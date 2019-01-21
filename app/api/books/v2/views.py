@@ -302,12 +302,13 @@ class BorrowBook(Resource):
             return make_response(jsonify({
                 'message':'Token Validation Failed'
             }),400)
-        response = tk.decode_token(self,validate_token)
-        if isinstance(response,str):
+        result = tk.decode_token(self,validate_token)
+        # print(result)
+        if isinstance(result,str):
             return make_response(jsonify({
                 'message':'Invalid Token.Please Login'
             }),400)
-        user_creds = user.get_user_id(response)
+        user_creds = user.get_user_id(result)
         if not user_creds:
             return make_response(jsonify({
                 'message':'Please Log In'
@@ -329,7 +330,9 @@ class BorrowBook(Resource):
             return make_response(jsonify({
                 'message':'Book is Unavailable'
             }),400)
-        response = book.borrow_book(status,id)
+
+        response = book.borrow_book(status,id,result)
+        # print(response)
         if response:
             return make_response(jsonify({
                 'message':'Book borrowed successfully',
@@ -426,3 +429,33 @@ class DeleteBook(Resource):
             return make_response(jsonify({
                 'message':'Invalid ID.No book found'
             }),400)
+
+# class GetUnreturned(Resource):
+#     """
+#     Class with method to get books not retunred by user
+#     """
+#     def get(self):
+#         """
+#         Method to get Unreturned books by a user
+#         """
+#         from app.utilities.token import TokenClass as tk
+#         validate_token = tk.validate_authentication(self)
+#         if not validate_token:
+#             return make_response(jsonify({
+#                 'message':'Token Validation Failed'
+#             }),400)
+#         response = tk.decode_token(self,validate_token)
+#         if isinstance(response,str):
+#             return make_response(jsonify({
+#                 'message':'Invalid Token.Please Login'
+#             }),400)
+
+#         get_books = book.get_unreturned_books(response)
+#         if not get_books:
+#             return make_response(jsonify({
+#                 'message':'User has no borrowed books'
+#             }),400)
+#         return make_response(jsonify({
+#                 'message':'Books not returned by user',
+#                 'books': response
+#             }),200)

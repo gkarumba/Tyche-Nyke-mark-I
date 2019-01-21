@@ -26,8 +26,8 @@ class UsersModel():
         Method for creating Admin role
         """
         role = 'Admin'
-        ID = 4
-        query = """SELECT id FROM users WHERE id = 4;"""
+        ID = 6
+        query = """SELECT id FROM users WHERE id = 6;"""
         result  = db.get_one(query)
         if result:
             query2 = """UPDATE users SET role = '{}' WHERE id = '{}'""".format(role,ID)
@@ -62,3 +62,13 @@ class UsersModel():
             if check_password_hash(response['password'],password):
                 return True
             return False
+
+    def get_unreturned_books(self,user_id):
+        """
+        Method to retrieve all books not returned by user
+        """
+        status = 'Unavailable'
+        check_query = """SELECT * FROM borrow WHERE user_id = '{}' AND status = '{}'""".format(user_id,status)
+        response = db.get_all(check_query)
+        # print(response)
+        return response
