@@ -2,13 +2,13 @@ from flask_restful import Resource
 from flask import request,jsonify,make_response
 import json
 #local imports
-from app.utilities.token import Token
+from app.utilities.token import TokenClass
 from app.api.users.v2.models import UsersModel
 from app.utilities.validations import check_space,check_words,\
                                       check_email,check_password
 
 user = UsersModel()
-tk = Token()
+tk = TokenClass()
 
 class Register(Resource):
     """

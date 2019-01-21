@@ -11,7 +11,7 @@ from app.api.users.v2.models import UsersModel
 
 db = UsersModel()
 
-class Token():
+class TokenClass():
     """
     Class with methods to encode and decode tokens
     """
@@ -45,26 +45,23 @@ class Token():
 
         return payload['id']
 
-# class ValidateAuthentication(Token):
-def validate_authentication(auth):
-    """
-    Method to validate the authentication for protected routes
-    """
-    @wraps(auth)
-    def decorator(*args,**kwargs):
+    def validate_authentication(self):
+        """
+        Method to validate the authentication for protected routes
+        """
         auth_header = request.headers.get('Authorization')
-        if auth_header:
-            auth_token = auth_header.split(" ")[0]
-        else:
-            auth_token = ''
-        if auth_token:
-            response = Token.decode_token(auth_token)
-            if not isinstance(response,str):
-                raise Unauthorized('Invalid Token.Please Login')
-            user_creds = db.get_user_id(response)
-            if not user_creds:
-                raise Unauthorized('Please Log In')
-            return auth(*args,**kwargs)
-        return decorator
+        if not auth_header:
+            raise Unauthorized('Protected Route. Add token to access it')
+        auth_token = auth_header.split(" ")[1]
+        if not auth_token:
+            raise NotFound('Token missing. Please put a token')
+        return auth_token
+        # response = self.decode_token(auth_token)
+        # if not isinstance(response,str):
+        #     raise Unauthorized('Invalid Token.Please Login')
+        # user_creds = db.get_user_id(response)
+        # if not user_creds:
+        #     raise Unauthorized('Please Log In')
+            
             
 
