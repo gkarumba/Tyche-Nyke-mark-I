@@ -24,7 +24,6 @@ def check_borrow(mystring):
         Function for validating the status type
     """
     status = r'\b' + 'borrow' + r'\b'
-    status2 = r'\b' + 'return' + r'\b' 
     if re.findall(status,mystring) :
         return True
     else:
