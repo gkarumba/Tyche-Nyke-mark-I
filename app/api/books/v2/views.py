@@ -33,7 +33,14 @@ class AddBooks(Resource):
             return make_response(jsonify({
                 'message':'Please Log In'
             }),400)
-            
+
+        check_role = user.check_role(response)
+        # print(check_role)
+        if not check_role:
+            return make_response(jsonify({
+                'message':'Only Admin is allowed to add a book'
+            }),401)
+
         try:
             data = request.get_json()
             title = data['title']
@@ -166,6 +173,13 @@ class EditTitle(Resource):
                 'message':'Please Log In'
             }),400)
 
+        check_role = user.check_role(response)
+        # print(check_role)
+        if not check_role:
+            return make_response(jsonify({
+                'message':'Only Admin is allowed to edit a book'
+            }),401)
+
         try:
             data = request.get_json()
             title = data['new_title']
@@ -215,6 +229,13 @@ class EditAuthor(Resource):
                 'message':'Please Log In'
             }),400)
 
+        check_role = user.check_role(response)
+        # print(check_role)
+        if not check_role:
+            return make_response(jsonify({
+                'message':'Only Admin is allowed to edit a book'
+            }),401)
+
         try:
             data = request.get_json()
             author = data['new_author']
@@ -263,6 +284,13 @@ class EditCategory(Resource):
             return make_response(jsonify({
                 'message':'Please Log In'
             }),400)
+
+        check_role = user.check_role(response)
+        # print(check_role)
+        if not check_role:
+            return make_response(jsonify({
+                'message':'Only Admin is allowed to edit a book'
+            }),401)
 
         try:
             data = request.get_json()
@@ -419,6 +447,13 @@ class DeleteBook(Resource):
             return make_response(jsonify({
                 'message':'Please Log In'
             }),400)
+
+        check_role = user.check_role(response)
+        # print(check_role)
+        if not check_role:
+            return make_response(jsonify({
+                'message':'Only Admin is allowed to delete a book'
+            }),401)
 
         response = book.delete_book(id)
         if response == None:

@@ -81,3 +81,15 @@ class UsersModel():
         response = db.get_all(check_query)
         # print(response)
         return response
+
+    def check_role(self,user_id):
+        """
+        Method for checking user role
+        """
+        check_query = """SELECT role FROM users WHERE id = '{}'""".format(user_id)
+        response = db.get_one(check_query)
+        # print(response)
+        for key,value in response.items():
+            if value == 'Admin':
+                return True
+            return False

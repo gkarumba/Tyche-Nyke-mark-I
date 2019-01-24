@@ -123,9 +123,9 @@ class Login(Resource):
 
 class GetUnreturned(Resource):
     """
-    Class with method to get books not retunred by user
+    Class with method to get books not returned by user
     """
-    def get(self):
+    def get(self,id):
         """
         Method to get Unreturned books by a user
         """
@@ -141,7 +141,14 @@ class GetUnreturned(Resource):
                 'message':'Invalid Token.Please Login'
             }),400)
 
-        get_books = user.get_unreturned_books(response)
+        check_role = user.check_role(response)
+        # print(check_role)
+        if not check_role:
+            return make_response(jsonify({
+                'message':'Only Admin is allowed to check for unreturned books'
+            }),401)
+
+        get_books = user.get_unreturned_books(id)
         if not get_books:
             return make_response(jsonify({
                 'message':'User has no borrowed books'
