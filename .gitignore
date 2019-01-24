@@ -12,7 +12,7 @@ var
 sdist
 develop-eggs
 .installed.cfg
-.env
+
 
 # Installer logs
 pip-log.txt
@@ -29,6 +29,23 @@ venv
 *.pyc
 build
 
-.env
 
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 .vscode/
+
+
+
+
+
+
+
+
+
+
