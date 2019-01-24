@@ -6,7 +6,7 @@ from app.api.books.v2 import library_v2
 from app.api.users.v1 import users_v1
 from app.api.users.v2 import users_v2
 
-def create_app(config_name="testing_config"):
+def create_app(config_name="development_config"):
     """
     Method to create the app
     """

@@ -1,10 +1,13 @@
 from flask_restful import Resource
 from flask import request,jsonify,make_response
 #local imports
+from app.api.users.v2.models import UsersModel
 from app.api.books.v2.models import BooksModel
 from app.utilities.validations import check_space,check_words,\
                                       check_borrow,check_return
 book = BooksModel()
+user = UsersModel()
+# tk = TokenClass() 
 
 class AddBooks(Resource):
     """
@@ -14,6 +17,23 @@ class AddBooks(Resource):
         """
         Method for adding a new book
         """
+        from app.utilities.token import TokenClass as tk
+        validate_token = tk.validate_authentication(self)
+        if not validate_token:
+            return make_response(jsonify({
+                'message':'Token Validation Failed'
+            }),400)
+        response = tk.decode_token(self,validate_token)
+        if isinstance(response,str):
+            return make_response(jsonify({
+                'message':'Invalid Token.Please Login'
+            }),400)
+        user_creds = user.get_user_id(response)
+        if not user_creds:
+            return make_response(jsonify({
+                'message':'Please Log In'
+            }),400)
+            
         try:
             data = request.get_json()
             title = data['title']
@@ -57,6 +77,23 @@ class AddBooks(Resource):
         """
         Method to retrieve all the books
         """
+        from app.utilities.token import TokenClass as tk
+        validate_token = tk.validate_authentication(self)
+        if not validate_token:
+            return make_response(jsonify({
+                'message':'Token Validation Failed'
+            }),400)
+        response = tk.decode_token(self,validate_token)
+        if isinstance(response,str):
+            return make_response(jsonify({
+                'message':'Invalid Token.Please Login'
+            }),400)
+        user_creds = user.get_user_id(response)
+        if not user_creds:
+            return make_response(jsonify({
+                'message':'Please Log In'
+            }),400)
+
         response = book.get_all_books()
         if response:
             return make_response(jsonify({
@@ -76,6 +113,23 @@ class GetBook(Resource):
         """
         Method to get one book
         """
+        from app.utilities.token import TokenClass as tk
+        validate_token = tk.validate_authentication(self)
+        if not validate_token:
+            return make_response(jsonify({
+                'message':'Token Validation Failed'
+            }),400)
+        response = tk.decode_token(self,validate_token)
+        if isinstance(response,str):
+            return make_response(jsonify({
+                'message':'Invalid Token.Please Login'
+            }),400)
+        user_creds = user.get_user_id(response)
+        if not user_creds:
+            return make_response(jsonify({
+                'message':'Please Log In'
+            }),400)
+
         response = book.get_one_book(id)
         if response:
             return make_response(jsonify({
@@ -95,6 +149,23 @@ class EditTitle(Resource):
         """
         Method to edit a book title
         """
+        from app.utilities.token import TokenClass as tk
+        validate_token = tk.validate_authentication(self)
+        if not validate_token:
+            return make_response(jsonify({
+                'message':'Token Validation Failed'
+            }),400)
+        response = tk.decode_token(self,validate_token)
+        if isinstance(response,str):
+            return make_response(jsonify({
+                'message':'Invalid Token.Please Login'
+            }),400)
+        user_creds = user.get_user_id(response)
+        if not user_creds:
+            return make_response(jsonify({
+                'message':'Please Log In'
+            }),400)
+
         try:
             data = request.get_json()
             title = data['new_title']
@@ -127,6 +198,23 @@ class EditAuthor(Resource):
         """
         Method to edit a book's author
         """
+        from app.utilities.token import TokenClass as tk
+        validate_token = tk.validate_authentication(self)
+        if not validate_token:
+            return make_response(jsonify({
+                'message':'Token Validation Failed'
+            }),400)
+        response = tk.decode_token(self,validate_token)
+        if isinstance(response,str):
+            return make_response(jsonify({
+                'message':'Invalid Token.Please Login'
+            }),400)
+        user_creds = user.get_user_id(response)
+        if not user_creds:
+            return make_response(jsonify({
+                'message':'Please Log In'
+            }),400)
+
         try:
             data = request.get_json()
             author = data['new_author']
@@ -159,6 +247,23 @@ class EditCategory(Resource):
         """
         Method to edit a book's category
         """
+        from app.utilities.token import TokenClass as tk
+        validate_token = tk.validate_authentication(self)
+        if not validate_token:
+            return make_response(jsonify({
+                'message':'Token Validation Failed'
+            }),400)
+        response = tk.decode_token(self,validate_token)
+        if isinstance(response,str):
+            return make_response(jsonify({
+                'message':'Invalid Token.Please Login'
+            }),400)
+        user_creds = user.get_user_id(response)
+        if not user_creds:
+            return make_response(jsonify({
+                'message':'Please Log In'
+            }),400)
+
         try:
             data = request.get_json()
             category = data['new_category']
@@ -191,6 +296,23 @@ class BorrowBook(Resource):
         """
         Method for borrowing a book
         """
+        from app.utilities.token import TokenClass as tk
+        validate_token = tk.validate_authentication(self)
+        if not validate_token:
+            return make_response(jsonify({
+                'message':'Token Validation Failed'
+            }),400)
+        response = tk.decode_token(self,validate_token)
+        if isinstance(response,str):
+            return make_response(jsonify({
+                'message':'Invalid Token.Please Login'
+            }),400)
+        user_creds = user.get_user_id(response)
+        if not user_creds:
+            return make_response(jsonify({
+                'message':'Please Log In'
+            }),400)
+
         try:
             data = request.get_json()
             status = data['status']
@@ -226,6 +348,23 @@ class ReturnBook(Resource):
         """
         Method for returning a borrowed book
         """
+        from app.utilities.token import TokenClass as tk
+        validate_token = tk.validate_authentication(self)
+        if not validate_token:
+            return make_response(jsonify({
+                'message':'Token Validation Failed'
+            }),400)
+        response = tk.decode_token(self,validate_token)
+        if isinstance(response,str):
+            return make_response(jsonify({
+                'message':'Invalid Token.Please Login'
+            }),400)
+        user_creds = user.get_user_id(response)
+        if not user_creds:
+            return make_response(jsonify({
+                'message':'Please Log In'
+            }),400)
+
         try:
             data = request.get_json()
             status = data['status']
@@ -261,8 +400,24 @@ class DeleteBook(Resource):
         """
         Method to delete a book
         """
+        from app.utilities.token import TokenClass as tk
+        validate_token = tk.validate_authentication(self)
+        if not validate_token:
+            return make_response(jsonify({
+                'message':'Token Validation Failed'
+            }),400)
+        response = tk.decode_token(self,validate_token)
+        if isinstance(response,str):
+            return make_response(jsonify({
+                'message':'Invalid Token.Please Login'
+            }),400)
+        user_creds = user.get_user_id(response)
+        if not user_creds:
+            return make_response(jsonify({
+                'message':'Please Log In'
+            }),400)
+
         response = book.delete_book(id)
-        print(response)
         if response == None:
             return make_response(jsonify({
                 'message':'Book deleted successfully'

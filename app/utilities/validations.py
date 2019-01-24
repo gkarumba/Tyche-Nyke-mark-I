@@ -49,11 +49,11 @@ def check_email(mystring):
     else:
         return True
 
-def check_password(mystring):
+def check_password(password):
     """
     Method for checking the user's password
     """
-    if re.match(r'[A-Za-z0-9@#$%^&+=]{8,}', mystring):
+    if re.match(r"[A-Za-z0-9@#$%^&+=]{8,}", password) != None:
         return True
     else:
         return False
