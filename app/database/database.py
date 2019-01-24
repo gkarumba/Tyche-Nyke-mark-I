@@ -5,7 +5,7 @@ from psycopg2.extras import RealDictCursor
 from instance.config import config
 
 env = os.getenv('FLASK_ENV')
-url = config[env].DATABASE_URL
+url = "dbname='test_books'host='localhost'port='5432'user='postgres'password='123456'"
 
 class BooksDB():
     """
