@@ -44,11 +44,23 @@ class AddBooks(Resource):
         try:
             data = request.get_json()
             title = data['title']
+        except Exception:
+            return make_response(jsonify({
+                'message':'Invalid title field'
+            }),400)
+        try:
+            data = request.get_json()
             author = data['author']
+        except Exception:
+            return make_response(jsonify({
+                'message':'Invalid author field'
+            }),400)
+        try:
+            data = request.get_json()
             category = data['category']
         except Exception:
             return make_response(jsonify({
-                'message':'Invalid key field'
+                'message':'Invalid category field'
             }),400)
 
         if not check_space(title) or not check_words(title):

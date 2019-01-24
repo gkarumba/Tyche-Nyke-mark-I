@@ -13,7 +13,7 @@ class UsersModel():
         Method of adding a user
         """
         hash_password = generate_password_hash(password)
-        db.create_tables()
+        # db.create_tables()
         query = """INSERT INTO users(email,password,username) VALUES (%s,%s,%s);"""
         tuple_data = (email,hash_password,username)
         db.add_user(query,tuple_data)
@@ -26,8 +26,8 @@ class UsersModel():
         Method for creating Admin role
         """
         role = 'Admin'
-        ID = 6
-        query = """SELECT id FROM users WHERE id = 6;"""
+        ID = 1
+        query = """SELECT id FROM users WHERE id = 1;"""
         result  = db.get_one(query)
         if result:
             query2 = """UPDATE users SET role = '{}' WHERE id = '{}'""".format(role,ID)

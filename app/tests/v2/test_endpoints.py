@@ -11,9 +11,12 @@ class EndpointsTest(BaseTest):
         """
         Method to test posting a book
         """
-        response = self.client.post('/api/v2/books',data=json.dumps(self.post_data),content_type='application/json')
+        response = self.client.post('/api/v2/books',data=json.dumps(self.post_data),\
+                                    headers ={'Authorization':"Bearer "+self.token,\
+                                              'content_type':'application/json'})
         result = json.loads(response.data)
-        # import pdb; pdb.set_trace()
+        print(self.post_data)
+        import pdb; pdb.set_trace()
         self.assertEqual(response.status_code, 201)
         self.assertIn(result['message'],'Book added successfully')
 
@@ -67,9 +70,8 @@ class EndpointsTest(BaseTest):
         """
         Method for destroying the tablea after running the program
         """
-        db.drop_tables(self)
+        db.drop_tables
 
-# if __name__ == '__main__':
-#     unittest.main()
+
     
     

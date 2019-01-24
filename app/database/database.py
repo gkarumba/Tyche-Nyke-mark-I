@@ -39,6 +39,21 @@ class BooksDB():
             );""")
         self.conn.commit()
 
+    def create_users_table(self):
+        """
+        Method for creating tables in the database
+        """
+        self.cur.execute(
+            """CREATE TABLE IF NOT EXISTS users(
+                id SERIAL PRIMARY KEY,
+                username varchar(42) NOT NULL,
+                email varchar(42) NOT NULL,
+                role varchar(42),
+                password varchar(420) NOT NULL,
+                books_borrowed INT REFERENCES books(id)
+            );"""
+        )
+
     def create_borrow_table(self):
         """
         Method to create the borrow table
@@ -52,18 +67,6 @@ class BooksDB():
                 status VARCHAR(42)
             );"""
         )
-
-    def drop_tables(self):
-        """
-        Method for dropping the tables after running tests
-        """
-        queries = (
-            """DROP TABLE IF EXISTS books CASCADE;""",
-            """DROP TABLES IF EXISTS users CASACADE;"""
-        )
-        for q in queries:
-            self.cur.execute(q)
-            self.conn.commit()
 
     def add_book(self,query_string,tuple_data):
         """
@@ -137,4 +140,15 @@ class BooksDB():
         self.cur.execute(query)
         self.conn.commit()
 
-    
+    def __del__(self):
+        self.conn.close()
+
+    def drop_tables(self):
+        """
+        Method for dropping the tables after running tests
+        """
+        self.cur.execute(
+            """DROP TABLE IF EXISTS books CASCADE;""",
+            """DROP TABLES IF EXISTS users CASACADE;"""
+        )
+        self.conn.commit()
