@@ -21,7 +21,7 @@ class TokenClass():
         """
         try:
             payload = {
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=10),
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
                 'iat': datetime.datetime.utcnow(),
                 'id': user_id
             }
