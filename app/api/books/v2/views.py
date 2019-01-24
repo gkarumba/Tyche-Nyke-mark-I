@@ -85,3 +85,99 @@ class GetBook(Resource):
             return make_response(jsonify({
                 'message':'Invalid ID.No book found'
             }),400)
+
+class EditTitle(Resource):
+    """
+    Class for the methods to edit a book's title
+    """
+    def put(self,id):
+        """
+        Method to edit a book title
+        """
+        try:
+            data = request.get_json()
+            title = data['new_title']
+        except Exception:
+            return make_response(jsonify({
+                'message':'Invalid key field'
+            }),400)
+
+        if not check_space(title) or not check_words(title):
+            return make_response(jsonify({
+            'message':'new_title field cannot be empty',
+            }),400)  
+    
+        response = book.edit_book_title(title,id)
+        if response:
+            return make_response(jsonify({
+                'message':'Book edited successfully',
+                'book_id':response
+            }),200)
+        else: 
+            return make_response(jsonify({
+                'message':'Invalid ID.No book found'
+            }),400)
+
+class EditAuthor(Resource):
+    """
+    Class for the methods to edit a book's author
+    """
+    def put(self,id):
+        """
+        Method to edit a book's author
+        """
+        try:
+            data = request.get_json()
+            author = data['new_author']
+        except Exception:
+            return make_response(jsonify({
+                'message':'Invalid key field'
+            }),400)
+
+        if not check_space(author) or not check_words(author):
+            return make_response(jsonify({
+            'message':'new_author field cannot be empty',
+            }),400)  
+    
+        response = book.edit_book_author(author,id)
+        if response:
+            return make_response(jsonify({
+                'message':'Book edited successfully',
+                'book_id':response
+            }),200)
+        else: 
+            return make_response(jsonify({
+                'message':'Invalid ID.No book found'
+            }),400)
+
+class EditCategory(Resource):
+    """
+    Class for the methods to edit a book's category
+    """
+    def put(self,id):
+        """
+        Method to edit a book's category
+        """
+        try:
+            data = request.get_json()
+            category = data['new_category']
+        except Exception:
+            return make_response(jsonify({
+                'message':'Invalid key field'
+            }),400)
+
+        if not check_space(category) or not check_words(category):
+            return make_response(jsonify({
+            'message':'new_category field cannot be empty',
+            }),400)  
+    
+        response = book.edit_book_category(category,id)
+        if response:
+            return make_response(jsonify({
+                'message':'Book edited successfully',
+                'book_id':response
+            }),200)
+        else: 
+            return make_response(jsonify({
+                'message':'Invalid ID.No book found'
+            }),400)
