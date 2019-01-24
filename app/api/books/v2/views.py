@@ -252,3 +252,22 @@ class ReturnBook(Resource):
             return make_response(jsonify({
                 'message':'Invalid ID.No book found'
             }),400)
+
+class DeleteBook(Resource):
+    """
+    Class for the methods to delete a book
+    """
+    def delete(self,id):
+        """
+        Method to delete a book
+        """
+        response = book.delete_book(id)
+        print(response)
+        if response == None:
+            return make_response(jsonify({
+                'message':'Book deleted successfully'
+            }),200)
+        else:
+            return make_response(jsonify({
+                'message':'Invalid ID.No book found'
+            }),400)
