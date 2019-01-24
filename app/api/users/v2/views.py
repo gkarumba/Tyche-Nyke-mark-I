@@ -150,3 +150,33 @@ class GetUnreturned(Resource):
                 'message':'Books not returned by user',
                 'books': get_books
             }),200)
+
+class GetBorrowHistory(Resource):
+    """
+    Class with method to get a user's borrowing history
+    """
+    def get(self,id):
+        """
+        Method to get a user's borrowing history
+        """
+        from app.utilities.token import TokenClass as tk
+        validate_token = tk.validate_authentication(self)
+        if not validate_token:
+            return make_response(jsonify({
+                'message':'Token Validation Failed'
+            }),400)
+        response = tk.decode_token(self,validate_token)
+        if isinstance(response,str):
+            return make_response(jsonify({
+                'message':'Invalid Token.Please Login'
+            }),400)
+
+        get_books = user.get_borrowing_history(id)
+        if not get_books:
+            return make_response(jsonify({
+                'message':'Invalid User ID'
+            }),400)
+        return make_response(jsonify({
+                'message':'Books borrowed by user',
+                'books': get_books
+            }),200)

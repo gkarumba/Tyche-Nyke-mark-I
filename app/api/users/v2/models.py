@@ -72,3 +72,12 @@ class UsersModel():
         response = db.get_all(check_query)
         # print(response)
         return response
+
+    def get_borrowing_history(self,user_id):
+        """
+        Method to retrieve the borrowing history of a user
+        """
+        check_query = """SELECT * FROM borrow WHERE user_id = '{}' """.format(user_id)
+        response = db.get_all(check_query)
+        # print(response)
+        return response
