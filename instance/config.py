@@ -4,7 +4,7 @@ class Config():
     """
         Parent Configuration Class
     """
-    DEBUG = True
+    DEBUG = False
     CSRF_ENABLED = True
     TEST = False
 
@@ -27,3 +27,4 @@ config = {
     "development_config" : DevelopmentConfig,
     "testing_config" : TestingConfig
 }
+

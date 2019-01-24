@@ -50,11 +50,13 @@ class TokenClass():
         Method to validate the authentication for protected routes
         """
         auth_header = request.headers.get('Authorization')
+        # print(auth_header)
         if not auth_header:
             raise Unauthorized('Protected Route. Add token to access it')
         auth_token = auth_header.split(" ")[1]
         if not auth_token:
             raise NotFound('Token missing. Please put a token')
+        # print(auth_token)
         return auth_token
         # response = self.decode_token(auth_token)
         # if not isinstance(response,str):

@@ -20,7 +20,7 @@ class BooksModel():
         """
         Method of adding a book
         """
-        db.create_tables()
+        # db.create_tables()
         query = """INSERT INTO books(book_name,author,category) VALUES (%s,%s,%s);"""
         tuple_data = (book_name,author,category)
         db.add_book(query,tuple_data)
