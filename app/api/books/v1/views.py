@@ -3,7 +3,8 @@ from flask import request, make_response, jsonify
 import json
 #local imports
 from app.api.books.v1.models import BooksModel, books_list
-from app.utilities.validations import check_space,check_words,check_borrow,check_return
+from app.utilities.validations import check_space,check_words,\
+                                      check_borrow,check_return
 
 db = BooksModel()
 
@@ -29,6 +30,7 @@ class AddBook(Resource):
             return make_response(jsonify({
             'message':'Author takes only letters',
             }),400)
+        
 
         if not check_words(category):
             return make_response(jsonify({

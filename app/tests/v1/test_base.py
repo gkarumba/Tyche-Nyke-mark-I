@@ -43,6 +43,6 @@ class BaseTest(unittest.TestCase):
             "author":"123456",
             "category":"history"
         }
-        self.status_data = {
-            "updated_status":"borrowed"
+        self.borrowing_data = {
+            "updated_status":"borrowing"
         }
