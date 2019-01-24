@@ -128,6 +128,26 @@ class BooksModel():
         db.borrow_book(query,tuple_data)
         query = """UPDATE books SET status = '{}' WHERE id = '{}'""".format(status,book_id)
         db.edit_book(query)
+        query = """UPDATE borrow SET status = '{}' WHERE book_id = '{}'""".format(status,book_id)
+        db.edit_book(query)
         get_query = """ SELECT * FROM borrow WHERE book_id = '{}'""".format(book_id)
+        response = db.get_one(get_query)
+        return response
+
+    def return_book(self,status,book_id):
+        """
+        Method to return a borrowed book
+        """
+        check_query = """SELECT book_name FROM books WHERE id = '{}'""".format(book_id)
+        check_response = db.get_one(check_query)
+        if not check_response:
+            return False
+        if status == 'return':
+            status = 'Available'
+        query = """ UPDATE books SET status = '{}' WHERE id  = '{}'""".format(status,book_id)
+        db.return_book(query)
+        query2 = """ UPDATE borrow SET status = '{}' WHERE book_id  = '{}'""".format(status,book_id)
+        db.return_book(query2)
+        get_query = """ SELECT * FROM books WHERE id = '{}'""".format(book_id)
         response = db.get_one(get_query)
         return response
