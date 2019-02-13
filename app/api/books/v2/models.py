@@ -168,11 +168,11 @@ class BooksModel():
         query = """ DELETE FROM books where id = '{}'""".format(book_id)
         db.delete_book(query)
 
-    # def get_unreturned_books(self,user_id):
-    #     """
-    #     Method to retrieve all books not returned by user
-    #     """
-    #     status = 'Unavailable'
-    #     check_query = """SELECT * FROM borrow WHERE user_id = '{}' AND status = '{}'""".format(user_id,status)
-    #     response = db.get_all(check_query)
-    #     return response
+    def get_unreturned_books(self,user_id):
+        """
+        Method to retrieve all books not returned by user
+        """
+        status = 'Unavailable'
+        check_query = """SELECT * FROM borrow WHERE user_id = '{}' AND status = '{}'""".format(user_id,status)
+        response = db.get_all(check_query)
+        return response

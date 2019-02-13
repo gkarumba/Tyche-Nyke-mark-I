@@ -49,11 +49,11 @@ class Register(Resource):
             # print(users)
             if users:
                 check_admin = user.set_role(users['id'])
-                if check_admin:
-                    return make_response(jsonify({
-                            'message':'User is Admin'
-                        }))
-                else:
+                if not check_admin:
+                #     return make_response(jsonify({
+                #             'message':'User is Admin'
+                #         }))
+                # else:
                     return make_response(jsonify({
                                 'message':'User not Admin'
                             }))

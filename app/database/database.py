@@ -5,7 +5,7 @@ from psycopg2.extras import RealDictCursor
 from instance.config import config
 
 env = os.getenv('FLASK_ENV')
-url = "dbname='books_db'host='localhost'port='5432'user='postgres'password='123456'"
+url = config[env].DATABASE_URL
 
 class BooksDB():
     """
@@ -147,8 +147,19 @@ class BooksDB():
         """
         Method for dropping the tables after running tests
         """
-        self.cur.execute(
-            """DROP TABLE IF EXISTS books CASCADE;""",
-            """DROP TABLES IF EXISTS users CASACADE;"""
-        )
-        self.conn.commit()
+        books = "DROP TABLE IF EXISTS books CASCADE"
+        users = "DROP TABLE IF EXISTS users CASCADE"
+        borrow = "DROP TABLE IF EXISTS borrow CASCADE"
+        queries = [books,users,borrow]
+        try:
+            for q in queries:
+                self.cur.execute(q)
+            self.conn.commit()
+        except:
+            print('fail')
+        
+        # self.cur.execute(
+        #     """DROP TABLE IF EXISTS books CASCADE;""",
+        #     """DROP TABLES IF EXISTS users CASACADE;"""
+        # )
+        # self.conn.commit()
