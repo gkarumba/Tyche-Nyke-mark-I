@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask import request, make_response, jsonify
 import json
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash,generate_password_hash
 #local imports
 from app.api.users.v1.models import UsersModel,users_list
 from app.utilities.validations import check_space,check_words,\
@@ -91,19 +91,26 @@ class Login(Resource):
             return make_response(jsonify({
             'message':'wrong email format',
             }),400)
-  
+
         for user in users_list:
             if user.email == email:
-
-                #  for user in users_list:
-                print(user.password)
-                print(check_password_hash(user.password,password))
-                if check_password_hash(user.password,password):
+                login_user = UsersModel.validate_user_login(self,email,password)
+                if login_user:
                     return make_response(jsonify({
-                        'message':'user has been logged in successfully'
-                        # 'user_ID': new_user['id']
-                        }),201)
-               
-        return make_response(jsonify({
-            'message':'Wrong login details, please try again'
-        }),400)
+                            'message':'user has been logged in successfully'
+                            # 'user_ID': new_user['id']
+                            }),201)  
+            return make_response(jsonify({
+                'message':'Wrong login details, please try again'
+            }),400)
+
+        # for user in users_list:
+        #     if user.email == email:
+                # print(user.password)
+                # print(check_password_hash(password,user.password))
+                # if check_password_hash(user.password,password):
+                #     return make_response(jsonify({
+                #         'message':'user has been logged in successfully'
+                #         # 'user_ID': new_user['id']
+                #         }),201)  
+       

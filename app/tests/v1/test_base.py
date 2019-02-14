@@ -46,3 +46,51 @@ class BaseTest(unittest.TestCase):
         self.borrowing_data = {
             "updated_status":"borrowing"
         }
+        self.returning_data = {
+            "updated_status":"returning"
+        }
+        self.email_data = {
+            "email" : "emailgmail.com",
+            "username" : "johnny",
+            "password" : "barca12345"
+        }
+        self.invalid_email_data = {
+            "" : "emailgmail.com",
+            "username" : "johnny",
+            "password" : "barca12345"
+        }
+        self.password_data = {
+            "email" : "email@gmail.com",
+            "username" : "johnny",
+            "password" : "12t"
+        }
+        self.invalid_password_data = {
+            "email" : "email@gmail.com",
+            "username" : "johnny",
+            "" : "12t"
+        }
+        self.invalid_username_data = {
+            "email" : "email@gmail.com",
+            "" : "johnny",
+            "password" : "12t"
+        }
+        self.register_data = {
+            "email" : "john@gmail.com",
+            "username" : "johnny",
+            "password" : "126735ttwywibe"
+        }
+        self.double_register_data = {
+            "email" : "email@gmail.com",
+            "username" : "johnny",
+            "password" : "126735ttwywibe"
+        }
+        self.register_user_data = {
+            "email" : "email@gmail.com",
+            "password" : "barca12345",
+            "username" : "johnny"
+        }
+        self.login_data = {
+            "email" : "email@gmail.com",
+            "password" : "barca12345"
+        }
+        

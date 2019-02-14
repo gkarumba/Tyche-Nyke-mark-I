@@ -5,12 +5,12 @@ users_list = []
     List for storing the users added
 """
 
-class UsersModel():
+class UsersModel:
     """
         Class for the users endpoints
     """
     user_id = 1
-    def __init__(self,email=None,username=None,password=None):
+    def __init__(self,email,username,password):
         """
             Constructor method for the class UsersModel
         """
@@ -51,22 +51,25 @@ class UsersModel():
             else:
                 return False
     
-    # def validate_user_login(self,email,password):
-    #     """
-    #     Method for checking the password
-    #     """
-    #     for user in users_list:
-    #         if email == user['email']:
-    #             # print(user['email'])
-    #             password_check = user['password']
-    #             validate_password = check_password_hash(password_check,password)
-    #             # print(validate_password)
-    #             if validate_password:
-    #                 for pos in users_list:
-    #                     return pos
-    #             return False
-    #         else:
-    #             return False
+    def validate_user_login(self,email,password):
+        """
+        Method for checking the password
+        """
+        for user in users_list:
+            # if email == user['email']:
+            #     # print(user['email'])
+            password_check = user.password
+            print(password_check)
+            validate_password = check_password_hash(password_check,password)
+            print(validate_password)
+            if validate_password:
+                for pos in users_list:
+                    return pos
+            return False
+            # else:
+            #     return False
+
+    
     def validate_password(self,password):
         """
         Method to validate password

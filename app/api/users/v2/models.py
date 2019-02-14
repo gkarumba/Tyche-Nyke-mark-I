@@ -13,7 +13,7 @@ class UsersModel():
         Method of adding a user
         """
         hash_password = generate_password_hash(password)
-        # db.create_tables()
+        # db.create_users_table()
         query = """INSERT INTO users(email,password,username) VALUES (%s,%s,%s);"""
         tuple_data = (email,hash_password,username)
         db.add_user(query,tuple_data)
@@ -48,6 +48,7 @@ class UsersModel():
         """
         Method for checking email
         """
+        # db.create_users_table()
         query = """SELECT * FROM users WHERE email = '{}'""".format(email)
         response = db.get_one(query)
         return response
