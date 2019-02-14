@@ -21,7 +21,7 @@ before_script:
 
 # command to run tests
 script:
-  - pytest
+  - nosetests --with-coverage --cover-package=app 
 
 branches:
   only:
