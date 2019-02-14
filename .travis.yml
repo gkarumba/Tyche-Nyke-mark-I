@@ -11,9 +11,6 @@ install:
 services:
   - postgresql
 
-addons:
-  postgresql: "10.6"
-
 before_script:
   - psql -c "create database books_db;" -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public to postgres;" -U postgres
