@@ -15,12 +15,12 @@ addons:
   postgresql: "10.6"
 
 before_script:
-  - psql -c "CREATE DATABASE books_db;" -U postgres
-  - psql -c "CREATE DATABASE test_books;" -U postgres
+  - psql -c "create database books_db;" -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public to postgres;" -U postgres
 
 # command to run tests
 script:
+  - export FLASK_ENV=development_config
   - pytest
 
 branches:
