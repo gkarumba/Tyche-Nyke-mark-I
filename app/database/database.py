@@ -147,8 +147,19 @@ class BooksDB():
         """
         Method for dropping the tables after running tests
         """
-        self.cur.execute(
-            """DROP TABLE IF EXISTS books CASCADE;""",
-            """DROP TABLES IF EXISTS users CASACADE;"""
-        )
-        self.conn.commit()
+        books = "DROP TABLE IF EXISTS books CASCADE"
+        users = "DROP TABLE IF EXISTS users CASCADE"
+        borrow = "DROP TABLE IF EXISTS borrow CASCADE"
+        queries = [books,users,borrow]
+        try:
+            for q in queries:
+                self.cur.execute(q)
+            self.conn.commit()
+        except:
+            print('fail')
+        
+        # self.cur.execute(
+        #     """DROP TABLE IF EXISTS books CASCADE;""",
+        #     """DROP TABLES IF EXISTS users CASACADE;"""
+        # )
+        # self.conn.commit()
