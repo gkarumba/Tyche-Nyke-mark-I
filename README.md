@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gkarumba/Tyche-Nyke-mark-I.svg?branch=develop)](https://travis-ci.org/gkarumba/Tyche-Nyke-mark-I)
+[![Build Status](https://travis-ci.org/gkarumba/Tyche-Nyke-mark-I.svg?branch=develop)](https://travis-ci.org/gkarumba/Tyche-Nyke-mark-I)[![Coverage Status](https://coveralls.io/repos/github/gkarumba/Tyche-Nyke-mark-I/badge.svg)](https://coveralls.io/github/gkarumba/Tyche-Nyke-mark-I)
 
 
 
