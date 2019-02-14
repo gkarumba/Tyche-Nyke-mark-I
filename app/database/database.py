@@ -22,21 +22,21 @@ class BooksDB():
         """
         Method for creating tables in the database
         """
-        # self.cur.execute("""CREATE TABLE IF NOT EXISTS books(
-        #         id SERIAL PRIMARY KEY,
-        #         book_name varchar(42) NOT NULL,
-        #         author varchar(42) NOT NULL,
-        #         category varchar(42) NOT NULL,
-        #         status varchar(42) default 'Available'
-        #         );""",
-        self.cur.execute("""CREATE TABLE IF NOT EXISTS users(
+        self.cur.execute("""CREATE TABLE IF NOT EXISTS books(
                 id SERIAL PRIMARY KEY,
-                username varchar(42) NOT NULL,
-                email varchar(42) NOT NULL,
-                role varchar(42),
-                password varchar(420) NOT NULL,
-                books_borrowed INT REFERENCES books(id)
-            );""")
+                book_name varchar(42) NOT NULL,
+                author varchar(42) NOT NULL,
+                category varchar(42) NOT NULL,
+                status varchar(42) default 'Available'
+                );""")
+            # """CREATE TABLE IF NOT EXISTS users(
+            #     id SERIAL PRIMARY KEY,
+            #     username varchar(42) NOT NULL,
+            #     email varchar(42) NOT NULL,
+            #     role varchar(42),
+            #     password varchar(420) NOT NULL,
+            #     books_borrowed INT REFERENCES books(id)
+            # );""")
         self.conn.commit()
 
     def create_users_table(self):
@@ -53,6 +53,7 @@ class BooksDB():
                 books_borrowed INT REFERENCES books(id)
             );"""
         )
+        self.conn.commit()
 
     def create_borrow_table(self):
         """
@@ -67,6 +68,7 @@ class BooksDB():
                 status VARCHAR(42)
             );"""
         )
+        self.conn.commit()
 
     def add_book(self,query_string,tuple_data):
         """
