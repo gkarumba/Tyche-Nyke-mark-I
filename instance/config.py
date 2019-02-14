@@ -20,11 +20,19 @@ class TestingConfig(Config):
         Class for the testing configuration
     """
     DEBUG = True
-    TEST = True
+    TESTING = True
     DATABASE_URL = os.getenv('TEST_DB_URL')
+
+class ProductionConfig(Config):
+    """
+        Class for the production configuration
+    """
+    DEBUG = False
+    TEST = False
 
 config = {
     "development_config" : DevelopmentConfig,
-    "testing_config" : TestingConfig
+    "testing_config" : TestingConfig,
+    "production_config" : ProductionConfig
 }
 

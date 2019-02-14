@@ -100,15 +100,63 @@ class EndpointsTests(BaseTest):
         self.assertEqual(response.status_code, 200)
         self.assertIn(result['message'],'Books not returned by user')
 
-    # def test_user_history(self):
-    #     """
-    #         Method for testing the user's borrowing history
-    #     """
-    #     self.client.post('api/v1/books',data=json.dumps(self.post_data),content_type='application/json')
-    #     response = self.client.get('/api/v1/books',data=json.dumps(self.return_data),content_type='application/json')
-    #     result = json.loads(response.data)
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertIn(result['message'],"User's borrowing history")
+    def test_user_registration(self):
+        """
+            Method for testing the user's registration
+        """
+        response = self.client.post('api/v1/users/register',data=json.dumps(self.register_data),content_type='application/json')
+        # self.client.get('/api/v1/books',data=json.dumps(self.return_data),content_type='application/json')
+        result = json.loads(response.data)
+        self.assertEqual(response.status_code, 201)
+        self.assertIn(result['message'],"user has been registered successfully")
+
+    def test_double_registration(self):
+        """
+            Method for testing the user's double registration
+        """
+        self.client.post('api/v1/users/register',data=json.dumps(self.double_register_data),content_type='application/json')
+        response = self.client.post('api/v1/users/register',data=json.dumps(self.double_register_data),content_type='application/json')
+        result = json.loads(response.data)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn(result['message'],"user already exists")
+
+    def test_invalid_email_field(self):
+        """
+            Method for testing the invalid key field
+        """
+        response = self.client.post('api/v1/users/register',data=json.dumps(self.invalid_email_data),content_type='application/json')
+        result = json.loads(response.data)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn(result['message'],"Invalid input field")
+
+    def test_invalid_password_field(self):
+        """
+            Method for testing the invalid key field
+        """
+        response = self.client.post('api/v1/users/register',data=json.dumps(self.invalid_password_data),content_type='application/json')
+        result = json.loads(response.data)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn(result['message'],"Invalid input field")
+
+    def test_invalid_username_field(self):
+        """
+            Method for testing the invalid key field
+        """
+        response = self.client.post('api/v1/users/register',data=json.dumps(self.invalid_username_data),content_type='application/json')
+        result = json.loads(response.data)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn(result['message'],"Invalid input field")
+
+    def test_invalid_login(self):
+        """
+            Method for testing the user's login
+        """
+        self.client.post('api/v1/users/register',data=json.dumps(self.register_user_data),content_type='application/json')
+        response = self.client.post('api/v1/users/login',data=json.dumps(self.login_data),content_type='application/json')
+        result = json.loads(response.data)
+        # import pdb; pdb.set_trace()
+        self.assertEqual(response.status_code, 400)
+        self.assertIn(result['message'],'Wrong login details, please try again')
 
 if __name__ == "__main__":
     unittest.main()
