@@ -22,14 +22,14 @@ class BooksDB():
         """
         Method for creating tables in the database
         """
-        self.cur.execute("""CREATE TABLE IF NOT EXISTS books(
-                id SERIAL PRIMARY KEY,
-                book_name varchar(42) NOT NULL,
-                author varchar(42) NOT NULL,
-                category varchar(42) NOT NULL,
-                status varchar(42) default 'Available'
-                );""",
-            """CREATE TABLE IF NOT EXISTS users(
+        # self.cur.execute("""CREATE TABLE IF NOT EXISTS books(
+        #         id SERIAL PRIMARY KEY,
+        #         book_name varchar(42) NOT NULL,
+        #         author varchar(42) NOT NULL,
+        #         category varchar(42) NOT NULL,
+        #         status varchar(42) default 'Available'
+        #         );""",
+        self.cur.execute("""CREATE TABLE IF NOT EXISTS users(
                 id SERIAL PRIMARY KEY,
                 username varchar(42) NOT NULL,
                 email varchar(42) NOT NULL,
