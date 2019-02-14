@@ -48,6 +48,7 @@ class UsersModel():
         """
         Method for checking email
         """
+        db.create_users_table()
         query = """SELECT * FROM users WHERE email = '{}'""".format(email)
         response = db.get_one(query)
         return response

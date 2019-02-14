@@ -140,8 +140,8 @@ class BooksDB():
         self.cur.execute(query)
         self.conn.commit()
 
-    def __del__(self):
-        self.conn.close()
+    # def __del__(self):
+    #     self.conn.close()
 
     def drop_tables(self):
         """
