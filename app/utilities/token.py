@@ -37,7 +37,7 @@ class TokenClass():
         Method to decode Token
         """
         try:
-            payload = jwt.decode(auth_token,key)
+            payload = jwt.decode(auth_token,key,algorithm='HS256')
         except jwt.ExpiredSignatureError:
             raise Unauthorized('Session has expired')
         except jwt.InvalidTokenError:

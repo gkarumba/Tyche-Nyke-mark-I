@@ -1,6 +1,7 @@
 import unittest
 #local import
 from app import create_app
+import json
 
 class BaseTest(unittest.TestCase):
     """
@@ -79,6 +80,14 @@ class BaseTest(unittest.TestCase):
             "username" : "johnny",
             "password" : "126735ttwywibe"
         }
+        self.login_user = {
+            "email" : "john@gmail.com",
+            "password" : "126735ttwywibe"
+        }
+        self.login_wrong_password = {
+            "email" : "john@gmail.com",
+            "password" : "126735ttydujdsbs"
+        }
         self.double_register_data = {
             "email" : "email@gmail.com",
             "username" : "johnny",
@@ -93,4 +102,18 @@ class BaseTest(unittest.TestCase):
             "email" : "email@gmail.com",
             "password" : "barca12345"
         }
-        
+        self.admin_login = {
+            "email" : "Napoleon@gmail.com",
+            "password" : "libya256bce"
+        }
+        self.edit_title = {
+            "new_title":"Invasion of Algiers"
+        }
+        self.borrow2_data = {
+            "status" : "borrow"
+        }
+        response  = self.client.post('/api/v2/users/login',data=json.dumps(self.login_user),content_type='application/json')
+        self.token = json.loads(response.data.decode())
+        token = self.token['token']
+        # self.token = json.loads(log_in.data.decode())
+        # token = self.token['token']
