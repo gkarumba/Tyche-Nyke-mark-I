@@ -114,6 +114,6 @@ class BaseTest(unittest.TestCase):
         }
         response  = self.client.post('/api/v2/users/login',data=json.dumps(self.login_user),content_type='application/json')
         self.token = json.loads(response.data.decode())
-        token = self.token['token']
+        # token = self.token['token']
         # self.token = json.loads(log_in.data.decode())
         # token = self.token['token']
