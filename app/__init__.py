@@ -1,5 +1,6 @@
 from flask import Flask,Blueprint
 from instance import config
+from flask_cors import CORS
 #local imports
 from app.api.books.v1 import library_v1
 from app.api.books.v2 import library_v2
@@ -15,6 +16,7 @@ def create_app(config_name="development_config"):
     """
     app = Flask(__name__,instance_relative_config=True)
     app.config.from_object(config.config[config_name])
+    CORS(app)
     db.create_tables()
     db.create_users_table()
     db.create_borrow_table()
