@@ -11,14 +11,16 @@ class EndpointsTests(BaseTest):
         """ 
             Method for testing the user registration
         """
+        response1  = self.client.post('/api/v2/users/register',data=json.dumps(self.register_data),content_type='application/json') 
         response  = self.client.post('/api/v2/users/register',data=json.dumps(self.register_data),content_type='application/json')
         result = json.loads(response.data)
         self.assertEqual(response.status_code, 400)
         self.assertIn(result['message'],'user already exists')
 
     def test_login_user(self):
-        """ Method for testing the user login"""   
-        response  = self.client.post('/api/v2/users/login',data=json.dumps(self.login_user),content_type='application/json')
+        """ Method for testing the user login"""  
+        response1  = self.client.post('/api/v2/users/register',data=json.dumps(self.register_data),content_type='application/json') 
+        response  = self.client.post('/api/v2/users/login',data=json.dumps(self.login_data),content_type='application/json')
         result = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
         self.assertIn(result['message'],'User logged in successfully')
